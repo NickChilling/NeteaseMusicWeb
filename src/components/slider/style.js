@@ -10,8 +10,8 @@ export const SliderContainer = styled.div`
     background: white;
     .before{
         position:absolute;
-        top: 0 ;
-        height: 60%;
+        top: -20em ;
+        height: 30em;
         width: 100%;
         background: ${global_style['theme-color']};
 
