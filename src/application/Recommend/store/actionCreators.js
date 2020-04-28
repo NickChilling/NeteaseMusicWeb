@@ -16,8 +16,9 @@ export const changeRecommendList = (data) => ({
 export const getBannerList = ()=>{
     return (dispatch)=>{
         getBannerRequest().then(data=>{
-            dispatch(changeBannerList(data.data.banners));
-        }).catch(()=>{
+            dispatch(changeBannerList(data.banners));
+        }).catch((e)=>{
+            console.log(e);
             console.log('轮播图播放错误')
         })
     }
