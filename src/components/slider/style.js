@@ -19,7 +19,7 @@ export const SliderContainer = styled.div`
     .slider-container{
         position: relative;
         width: 98%;
-        height: 200px;
+        height: 20rem;
         overflow:hidden;
         margin:auto;
         border-radius: 6px;
