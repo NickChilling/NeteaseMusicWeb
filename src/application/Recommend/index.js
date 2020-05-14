@@ -23,9 +23,11 @@ function Recommend(props) {
     const bannerListJS = bannerList ? bannerList.toJS() : [];
     const recommendListJS = recommendList ? recommendList.toJS() : [];
 
+
+        // scroll 下面的div 是为了包含slide 和recommend list
     return (
         <Content>
-            <Scroll className="list" onScroll={forceCheck}>
+            <Scroll  onScroll={forceCheck}>
                 <div>
                     <Slider bannerList={bannerListJS}>
                     </Slider>

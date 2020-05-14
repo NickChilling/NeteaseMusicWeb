@@ -8,7 +8,8 @@ import styled from 'styled-components';
 const ScrollContainer = styled.div`
     width: 100%;
     height:100%;
-    overflow: hidden;`
+    white-space: nowrap;
+    overflow:  hidden;`
 
 export const Scroll = forwardRef((props,ref)=>{
     const [bScroll, setBScroll] = useState();
@@ -24,6 +25,7 @@ export const Scroll = forwardRef((props,ref)=>{
             scrollY:direction === "vertical",
             probeType:3,
             click:click,
+            mouseWheel:true,
             bounce:{
                 top:bounceTop,
                 bottom: bounceBottom
@@ -49,6 +51,7 @@ export const Scroll = forwardRef((props,ref)=>{
     useEffect(()=>{
         if(!bScroll || !pullUp) return;
         bScroll.on("scrollEnd",()=>{
+            console.log("scroolEnd");
             if(bScroll.y <= bScroll.maxScrollY +100){
                 pullUp();
             }
@@ -64,6 +67,7 @@ export const Scroll = forwardRef((props,ref)=>{
         if(!bScroll || !pullDown) return ;
         bScroll.on('touchEnd',(pos)=>{
             if(pos.y > 50){
+                console.log("touchend");
                 pullDown();
             }
         });
