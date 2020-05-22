@@ -30,12 +30,16 @@ const LoadingWrapper = styled.div`
      animation-delay:-0.7s;
  }` 
 
- function Loading(){
+ function Loading(props){
+     const {show} = props;
+     if(show){
      return (
          <LoadingWrapper>
              <div></div>
              <div></div>
          </LoadingWrapper>
-     );
+     );}else{
+         return (<></>)
+     }
  }
  export default React.memo(Loading);

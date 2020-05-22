@@ -38,7 +38,6 @@ Horizen.defaultProps = {
 
 Horizen.propTypes = {
     list: PropTypes.array,
-    oldVal: PropTypes.string,
     title: PropTypes.string,
     handleClick: PropTypes.func
 };

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseUrl = 'http://139.9.208.205:3000';
+export const baseUrl = 'http://127.0.0.1:3001';
 
 const axiosInstance = axios.create({
     baseUrl:baseUrl
@@ -15,7 +15,7 @@ axiosInstance.interceptors.response.use(
 export {axiosInstance}
 
 let category = ["华语","欧美","日本","韩国","其他"];
-let singer = ["男","女","组合","其他"]
+let singer = ["男","女","组合"]
 const startKey = 1000;
 export const categoryTypes = [...Array(15)].map((item,index)=>{
     let i = Math.floor(Math.random()*category.length);

@@ -1,5 +1,5 @@
 import { getHotSingerListRequest, getSingerListRequest } from '../../../api/request.js'
-import { CHANGE_PAGE_COUNT, CHANGE_SINGER_LIST, CHANGE_ENTER_LOADING, CHANGE_PULLUP_LOADING, CHANGE_PULLDOWN_LOADING } from './constants.js';
+import { CHANGE_SINGER_LIST, CHANGE_ENTER_LOADING, CHANGE_PULLUP_LOADING, CHANGE_PULLDOWN_LOADING } from './constants.js';
 import { fromJS } from 'immutable';
 
 export const changeSingerList = (data) =>
@@ -9,10 +9,6 @@ export const changeSingerList = (data) =>
     });
 
 
-export const changePageCount = (data) => ({
-    type: CHANGE_PAGE_COUNT,
-    data
-});
 
 export const changePullUpLoading = (data) => ({
     type: CHANGE_PULLUP_LOADING,
@@ -36,6 +32,7 @@ export const getHotSingerList = () => {
             dispatch(changeSingerList(data));
             dispatch(changeEnterLoading(false));
             dispatch(changePullDownLoading(false));
+            console.log("获取热门数据")
         }).catch(() => {
             console.log("热门歌手数据获取失败");
         })
@@ -44,9 +41,9 @@ export const getHotSingerList = () => {
 
 export const refreshMoreHotSingerList = () => {
     return(dispatch, getState)=> {
-    const pageCount = getState().getIn(['singers','pageCount']);
     const singerList = getState().getIn(['singers','singerList']).toJS();
-    getHotSingerListRequest(pageCount).then(res=>{
+    const offset = singerList.length;
+    getHotSingerListRequest(offset).then(res=>{
         const data = [...singerList,...res.artists];
         dispatch(changeSingerList(data));
         dispatch(changePullUpLoading(false));
@@ -56,9 +53,9 @@ export const refreshMoreHotSingerList = () => {
 }
 };
 
-export const getSingerList = (category, alpha) =>{
+export const getSingerList = (type,area, alpha) =>{
     return (dispatch,getState)=>{
-        getSingerListRequest(category,alpha, 0).then(res=>{
+        getSingerListRequest(type,area,alpha, 0).then(res=>{
             const data = res.artists;
             dispatch(changeSingerList(data));
             dispatch(changeEnterLoading(false));
@@ -69,11 +66,11 @@ export const getSingerList = (category, alpha) =>{
     }
 }
 
-export const refreshMoreSingerList = (category, alpha)=>{
+export const refreshMoreSingerList = (type,area, alpha)=>{
     return (dispatch, getState)=>{
-        const pageCount = getState().getIn(['singers','pageCount']);
         const singerList = getState().getIn(['singers','singerList']).toJS();
-        getSingerListRequest(category, alpha, pageCount).then(res=>{
+        const offset = singerList.length;
+        getSingerListRequest(type,area, alpha, offset).then(res=>{
             const data = [...singerList,...res.artists];
             dispatch(changeSingerList(data));
             dispatch(changePullUpLoading(false));

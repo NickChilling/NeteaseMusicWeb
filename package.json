@@ -2,7 +2,7 @@
   "name": "cloud-music",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://139.9.208.205:3001",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -27,6 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "api":"node ../NeteaseCloudMusicApi/app.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -44,8 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^7.0.0"
   }
 }
