@@ -18,6 +18,7 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.3.0",
@@ -25,9 +26,9 @@
     "swiper": "^5.3.7"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node ../NeteaseCloudMusicApi/app.js& react-scripts start",
     "build": "react-scripts build",
-    "api":"node ../NeteaseCloudMusicApi/app.js",
+    "api": "node ../NeteaseCloudMusicApi/app.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

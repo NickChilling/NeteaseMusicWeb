@@ -9,3 +9,22 @@ export const getCount = (count)=>{
         return hundB + "亿";
     }
 }
+
+export const getRankIndex = (rankList)=>{
+    if(!rankList.length) return;
+    for(let i = 0; i < rankList.length; i++){
+        console.log(i.tracks);
+        if(!rankList[i].tracks || !rankList[i].tracks.length){
+            return i;
+        }
+    }
+    throw Error("rankList 请求到的数据都有tracks")
+}
+export const getName = list=>{
+    let str = "";
+    list.map((item,index)=>{
+        str += index===0? item.name : "/"+item.name;
+        return item;
+    });
+    return str;
+}

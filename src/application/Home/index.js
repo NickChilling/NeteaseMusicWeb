@@ -1,9 +1,9 @@
 import React from 'react';
-import {Top, TabItem, Tab} from './style';
+import { Top, TabItem, Tab } from './style';
 import { renderRoutes } from 'react-router-config';
 import { NavLink } from 'react-router-dom';
-function Home(props){
-    const {route} = props;  // 把路由传到组件里
+function Home(props) {
+    const { route } = props;  // 把路由传到组件里
     return (
         <div>
             <Top>
@@ -15,17 +15,17 @@ function Home(props){
                 <NavLink to="/recommend" activeClassName="seleted">
                     <TabItem>
                         <span> 推荐 </span>
-                        </TabItem>
-                    </NavLink>
+                    </TabItem>
+                </NavLink>
                 <NavLink to="/singers" activeClassName="selected">
                     <TabItem>
                         <span> 歌手 </span>
-                        </TabItem>
-                    </NavLink>
+                    </TabItem>
+                </NavLink>
                 <NavLink to="/rank" activeClassName="selected"><TabItem><span> 排行榜 </span></TabItem></NavLink>
             </Tab>
             {renderRoutes(route.routes)  // todo: render route
-            }   
+            }
         </div>
     )
 }
