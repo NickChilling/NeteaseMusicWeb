@@ -56,6 +56,7 @@ export const DescContainer = styled.div`
         width: 8rem;
         height: 8rem;
         position: relative;
+        padding-left: 1rem;
         img{
             width: 100%;
             height: 100%;

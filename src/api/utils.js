@@ -28,3 +28,9 @@ export const getName = list=>{
     });
     return str;
 }
+export const isEmpty = obj=>{
+    for(let i in obj){
+        return false;
+    }
+    return true;
+}

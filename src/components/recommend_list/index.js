@@ -5,7 +5,7 @@ import LazyLoad from 'react-lazyload';
 import {withRouter} from 'react-router';
 function RecommendList(props) {
     const enterDetail = (id)=>{
-        props.history.push(`/recommend/:${id}`);
+        props.history.push(`/recommend/${id}`);
     }
     return (
         <ListWrapper>

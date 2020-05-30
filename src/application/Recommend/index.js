@@ -11,7 +11,6 @@ import {renderRoutes} from 'react-router-config';
 function Recommend(props) {
     const { bannerList, recommendList, enterLoading } = props;
     const { getBannerDataDispatch, getRecommendListDataDispatch } = props;
-
     useEffect(() => {
         if (!bannerList.size) {
             getBannerDataDispatch();

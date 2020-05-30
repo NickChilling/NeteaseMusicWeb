@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import {connect} from 'react-redux';
-import {getAlbum, changeEnterLoading} from './store';
+import React, { useState, useEffect,useCallback } from 'react';
+import { connect } from 'react-redux';
+import { getAlbum, changeEnterLoading } from './store';
 import { CSSTransition } from 'react-transition-group';
 import Header from '../../baseUI/header';
 import { Scroll } from '../../components/scroll';
-import { getCount , getName} from '../../api/utils';
+import { getCount, getName, isEmpty } from '../../api/utils';
 import Loading from '../../baseUI/loading';
 import { Container, DescContainer, MenuContainer, SongContainer } from './style';
 function Album(props) {
-    const {Album,enterLoading} = props;
-    const {getAlbumDispatch, changeEnterLoadingDispatch} = props;
-
-    const currentAlbum = Album.toJS();
-    useEffect(()=>{
-        getAlbumDispatch()
-    },[]);
+    const { album, enterLoading } = props;
+    const id = props.match.params.id;
+    const { getAlbumDispatch, changeEnterLoadingDispatch } = props;
+    const currentAlbum = album.toJS();
+    useEffect(() => {
+        if(isEmpty(currentAlbum)){
+            getAlbumDispatch(id)
+        }
+    }, [getAlbumDispatch,id]);
     const [showStatus, setShowStatus] = useState(true)
-    const handleBack = () => {
+    const handleBack = useCallback(() => {
         setShowStatus(false);
-    }
+    },[])
     const renderDesc = () => (
         <DescContainer background={currentAlbum.coverImgUrl}>
             <div className="background" >
@@ -66,25 +68,25 @@ function Album(props) {
                 <div className="play-header">
                     <i className="iconfont-play">&#xe701;</i>
                     <span>播放全部</span>
-    <span className="hint">{`(共${currentAlbum.tracks.length}首)`}</span>
+                    <span className="hint">{`(共${currentAlbum.tracks.length}首)`}</span>
                 </div>
                 <div className="favorite-button">
                     <i className="iconfont-add">&#xe7b0;</i>
-    <span>{`收藏(${getCount(currentAlbum.subscribedCount)})`}</span>
+                    <span>{`收藏(${getCount(currentAlbum.subscribedCount)})`}</span>
                 </div>
             </div>
             <div className="song-list">
-                    {currentAlbum.tracks.map((item,index)=>{
-                        return(<li key={index}>
-                            <span className="index">{index+1}</span>
-                            <div className="info">
-                                <span>{item.name}</span>
-                                <span className="info-singer">
-                                    {getName(item.ar)} - {item.al.name}
-                                </span>
-                            </div>
-                        </li>)
-                    })}
+                {currentAlbum.tracks.map((item, index) => {
+                    return (<li key={index}>
+                        <span className="index">{index + 1}</span>
+                        <div className="info">
+                            <span>{item.name}</span>
+                            <span className="info-singer">
+                                {getName(item.ar)} - {item.al.name}
+                            </span>
+                        </div>
+                    </li>)
+                })}
             </div>
         </SongContainer>
     );
@@ -94,33 +96,36 @@ function Album(props) {
             in={showStatus} timeout={300} classNames="fly"
             appear={true} unmountOnExit onExit={props.history.goBack}>
             <Container>
-                {enterLoading?<Loading></Loading>:<></>}
+                <Loading show={enterLoading}></Loading>
                 <Header title="返回" handleClick={handleBack}></Header>
+                {isEmpty(currentAlbum) ? <></>:
                 <Scroll bounceTop={false}>
                     <div>
                         {renderDesc()}
                         {renderMenu()}
                         {renderSong()}
                     </div>
-                </Scroll>
+
+                </Scroll>}
             </Container>
         </CSSTransition>
 
     )
 }
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
     return {
-        getAlbumDispatch(id){
+        getAlbumDispatch(id) {
             dispatch(getAlbum(id))
         },
-        changeEnterLoadingDispatch(data){
+        changeEnterLoadingDispatch(data) {
             dispatch(changeEnterLoading(data))
-    }
-}}
-const mapStateToProps = (state)=>{
-    return {
-        enterLoading: state.getIn(['album','enterLoading']),
-        album: state.getIn(['album','enterLoading']) 
+        }
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(React.memo(Album));
+const mapStateToProps = (state) => {
+    return {
+        enterLoading: state.getIn(['album', 'enterLoading']),
+        album: state.getIn(['album', 'album'])
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Album));
