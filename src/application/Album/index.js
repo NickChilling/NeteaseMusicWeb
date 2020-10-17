@@ -10,13 +10,12 @@ import { Container, DescContainer, MenuContainer, SongContainer } from './style'
 function Album(props) {
     const { album, enterLoading } = props;
     const id = props.match.params.id;
-    const { getAlbumDispatch, changeEnterLoadingDispatch } = props;
+    const { getAlbumDispatch,changeEnterLoadingDispatch } = props;
     const currentAlbum = album.toJS();
     useEffect(() => {
-        if(isEmpty(currentAlbum)){
-            getAlbumDispatch(id)
-        }
-    }, [getAlbumDispatch,id]);
+            getAlbumDispatch(id);
+            changeEnterLoadingDispatch(true);
+    }, [getAlbumDispatch,changeEnterLoadingDispatch,id]);
     const [showStatus, setShowStatus] = useState(true)
     const handleBack = useCallback(() => {
         setShowStatus(false);

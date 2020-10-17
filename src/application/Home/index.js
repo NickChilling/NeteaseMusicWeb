@@ -2,6 +2,7 @@ import React from 'react';
 import { Top, TabItem, Tab } from './style';
 import { renderRoutes } from 'react-router-config';
 import { NavLink } from 'react-router-dom';
+import Player from '../player';
 function Home(props) {
     const { route } = props;  // 把路由传到组件里
     return (
@@ -26,6 +27,7 @@ function Home(props) {
             </Tab>
             {renderRoutes(route.routes)  // todo: render route
             }
+            <Player></Player>
         </div>
     )
 }
